@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Belajar Rambu Lalu Lintas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #74c0fc 0%, #228be6 100%);
+            min-height: 100vh;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .sign-svg {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .option-btn {
+            transition: all 0.3s;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            background: #f8f9fa;
+            margin: 5px;
+        }
+        .option-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .correct {
+            background: #40c057 !important;
+            color: white;
+        }
+        .incorrect {
+            background: #ff6b6b !important;
+            color: white;
+        }
+        .score-container {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        .bounce { animation: bounce 1s; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="game-container text-center">
+        <h1 class="text-4xl font-bold text-blue-600 mb-4 bounce">Permainan Belajar Rambu Lalu Lintas</h1>
+        <div class="score-container">
+            Skor: <span id="score">0</span> / <span id="total">10</span>
+        </div>
+        <div id="signContainer" class="mb-6"></div>
+        <p class="text-lg mb-4" id="question">Apa arti dari rambu di atas?</p>
+        <div id="optionsContainer" class="grid grid-cols-2 gap-4 justify-items-center"></div>
+        <button id="nextBtn" class="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full hidden">
+            Rambu Berikutnya
+        </button>
+        <button id="restartBtn" class="mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full hidden">
+            Main Lagi
+        </button>
+    </div>
+
+    <script>
+        const signs = [
+            {
+                id: 'stop',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="100,20 180,60 180,140 100,180 20,140 20,60" fill="red" stroke="black" stroke-width="2"/>
+                    <text x="100" y="90" font-size="16" fill="white" text-anchor="middle" font-weight="bold">BERHENTI</text>
+                    <text x="100" y="110" font-size="16" fill="white" text-anchor="middle" font-weight="bold">STOP</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Berhenti total",
+                options: ["Berhenti total", "Dilarang masuk", "Prioritas diberikan", "Jalan satu arah"]
+            },
+            {
+                id: 'yield',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="10,100 100,10 190,100 100,190" fill="none" stroke="orange" stroke-width="8"/>
+                    <text x="100" y="100" font-size="20" fill="orange" text-anchor="middle" font-weight="bold">BERI JALAN</text>
+                    <text x="100" y="120" font-size="16" fill="orange" text-anchor="middle" font-weight="bold">YIELD</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Beri jalan pada kendaraan lain",
+                options: ["Beri jalan pada kendaraan lain", "Berhenti total", "Jalan bebas", "Dilarang parkir"]
+            },
+            {
+                id: 'no-entry',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="80" fill="red" stroke="black" stroke-width="4"/>
+                    <rect x="20" y="80" width="160" height="40" fill="white"/>
+                    <text x="100" y="110" font-size="24" fill="red" text-anchor="middle" font-weight="bold">TIDAK MASUK</text>
+                    <text x="100" y="130" font-size="16" fill="red" text-anchor="middle" font-weight="bold">NO ENTRY</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Dilarang masuk",
+                options: ["Dilarang masuk", "Prioritas lurus", "Belok kiri dilarang", "Kendaraan besar dilarang"]
+            },
+            {
+                id: 'one-way',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="100" height="100" fill="blue" stroke="black" stroke-width="2"/>
+                    <polygon points="75,75 125,100 75,125" fill="white"/>
+                    <text x="100" y="160" font-size="16" fill="white" text-anchor="middle" font-weight="bold">SATU ARAH</text>
+                    <text x="100" y="180" font-size="14" fill="white" text-anchor="middle" font-weight="bold">ONE WAY</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Jalan satu arah",
+                options: ["Jalan satu arah", "Belok kanan dilarang", "Parkir dilarang", "Kecepatan 50 km/jam"]
+            },
+            {
+                id: 'no-parking',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="100" height="100" fill="blue" stroke="black" stroke-width="2"/>
+                    <circle cx="100" cy="100" r="30" fill="red" stroke="red" stroke-width="2"/>
+                    <line x1="70" y1="70" x2="130" y2="130" stroke="white" stroke-width="6"/>
+                    <text x="100" y="170" font-size="16" fill="white" text-anchor="middle" font-weight="bold">TIDAK PARKIR</text>
+                    <text x="100" y="190" font-size="14" fill="white" text-anchor="middle" font-weight="bold">NO PARKING</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Dilarang parkir",
+                options: ["Dilarang parkir", "Kecepatan maksimal 30", "Zona pemukiman", "Berhenti dilarang"]
+            },
+            {
+                id: 'speed-limit-50',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="80" fill="red" stroke="black" stroke-width="4"/>
+                    <text x="100" y="90" font-size="24" fill="white" text-anchor="middle" font-weight="bold">50</text>
+                    <text x="100" y="120" font-size="16" fill="white" text-anchor="middle" font-weight="bold">KM/JAM</text>
+                    <text x="100" y="170" font-size="14" fill="white" text-anchor="middle" font-weight="bold">BATAS KECEPATAN</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Kecepatan maksimal 50 km/jam",
+                options: ["Kecepatan maksimal 50 km/jam", "Kecepatan minimal 50", "Waspada pejalan kaki", "Berbelok ke kanan"]
+            },
+            {
+                id: 'crosswalk',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="150" height="150" fill="blue" stroke="black" stroke-width="2"/>
+                    <line x1="25" y1="80" x2="175" y2="80" stroke="white" stroke-width="10"/>
+                    <line x1="25" y1="120" x2="175" y2="120" stroke="white" stroke-width="10"/>
+                    <text x="100" y="180" font-size="16" fill="white" text-anchor="middle" font-weight="bold">ZEBRA CROSS</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Waspada pejalan kaki",
+                options: ["Waspada pejalan kaki", "Parkir diperbolehkan", "Belok kiri bebas", "Kecepatan 80 km/jam"]
+            },
+            {
+                id: 'school-zone',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="30" width="140" height="140" fill="yellow" stroke="black" stroke-width="2"/>
+                    <polygon points="50,60 100,40 150,60 150,120 100,140 50,120" fill="red"/>
+                    <circle cx="75" cy="80" r="5" fill="white"/>
+                    <circle cx="125" cy="80" r="5" fill="white"/>
+                    <polygon points="70,100 100,90 130,100 100,110" fill="yellow"/>
+                    <text x="100" y="170" font-size="16" fill="yellow" text-anchor="middle" font-weight="bold">SEKOLAH</text>
+                    <text x="100" y="190" font-size="14" fill="yellow" text-anchor="middle" font-weight="bold">SCHOOL ZONE</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Zona sekolah, hati-hati",
+                options: ["Zona sekolah, hati-hati", "Kecepatan bebas", "Dilarang berhenti", "Banyak pohon"]
+            },
+            {
+                id: 'no-u-turn',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="80" fill="red" stroke="black" stroke-width="4"/>
+                    <path d="M80,80 Q100,50 120,80 L115,85 Q100,55 85,85 Z" fill="white"/>
+                    <line x1="100" y1="80" x2="100" y2="140" stroke="white" stroke-width="10"/>
+                    <text x="100" y="170" font-size="16" fill="white" text-anchor="middle" font-weight="bold">TIDAK PUTAR BALIK</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Dilarang putar balik",
+                options: ["Dilarang putar balik", "Belok kanan wajib", "Jalan tol", "Kecepatan 60"]
+            },
+            {
+                id: 'caution-rocks',
+                svg: `<svg class="sign-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="100" height="100" fill="yellow" stroke="black" stroke-width="2"/>
+                    <polygon points="75,75 100,65 125,75 100,95" fill="brown"/>
+                    <circle cx="90" cy="85" r="3" fill="gray"/>
+                    <circle cx="110" cy="80" r="2" fill="gray"/>
+                    <text x="100" y="130" font-size="16" fill="red" text-anchor="middle" font-weight="bold">WASPADA</text>
+                    <text x="100" y="150" font-size="14" fill="red" text-anchor="middle" font-weight="bold">ROCKS</text>
+                    <text x="100" y="170" font-size="12" fill="red" text-anchor="middle" font-weight="bold">BATU JATUH</text>
+                </svg>`,
+                question: "Apa arti dari rambu ini?",
+                correct: "Waspada jatuhan batu",
+                options: ["Waspada jatuhan batu", "Jalan basah", "Belok kiri dilarang", "Zona pemotretan"]
+            }
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+        let totalQuestions = signs.length;
+        let answered = false;
+
+        function loadQuestion() {
+            const sign = signs[currentIndex];
+            document.getElementById('signContainer').innerHTML = sign.svg;
+            document.getElementById('question').textContent = sign.question;
+            document.getElementById('optionsContainer').innerHTML = '';
+            sign.options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn flex-1 w-full';
+                btn.textContent = option;
+                btn.onclick = () => selectOption(btn, option === sign.correct);
+                document.getElementById('optionsContainer').appendChild(btn);
+            });
+            document.getElementById('nextBtn').classList.add('hidden');
+            answered = false;
+        }
+
+        function selectOption(btn, isCorrect) {
+            if (answered) return;
+            answered = true;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            if (isCorrect) {
+                score++;
+                document.getElementById('score').textContent = score;
+                alert('Benar! 🎉'); // But no emojis! Change to text
+                alert('Benar! Bagus sekali!');
+            } else {
+                alert('Salah. Coba lagi!');
+                document.querySelectorAll('.option-btn').forEach(b => {
+                    if (b.textContent === signs[currentIndex].correct) {
+                        b.classList.add('correct');
+                    }
+                });
+            }
+            document.getElementById('nextBtn').classList.remove('hidden');
+        }
+
+        document.getElementById('nextBtn').onclick = () => {
+            if (currentIndex < totalQuestions - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                const percentage = (score / totalQuestions) * 100;
+                alert(`Permainan selesai! Skor kamu: ${score}/${totalQuestions} (${percentage.toFixed(0)}%)`);
+                if (percentage >= 80) {
+                    alert('Hebat! Kamu pandai mengenai rambu lalu lintas.');
+                } else {
+                    alert('Belajar lagi yuk!');
+                }
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('restartBtn').classList.remove('hidden');
+            }
+        };
+
+        document.getElementById('restartBtn').onclick = () => {
+            currentIndex = 0;
+            score = 0;
+            document.getElementById('score').textContent = score;
+            document.getElementById('restartBtn').classList.add('hidden');
+            loadQuestion();
+        };
+
+        // Start the game
+        loadQuestion();
+    </script>
+</body>
+</html>
+</content>
+</create_file>

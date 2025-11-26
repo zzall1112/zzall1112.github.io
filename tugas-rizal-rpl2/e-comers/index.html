@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modern E-Commerce Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-2xl font-bold text-blue-600">shoes shop</h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#home" class="hover:text-blue-600">Home</a>
+        <a href="#products" class="hover:text-blue-600">Products</a>
+        <a href="#contact" class="hover:text-blue-600">Contact</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <button id="cart-toggle" class="relative">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m13-9l2 9m-5-9v9m-4-9v9" />
+          </svg>
+          <span id="cart-count"
+            class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full text-xs px-1">0</span>
+        </button>
+        <button id="mobile-menu-toggle" class="md:hidden">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden bg-gray-100">
+      <a href="#home" class="block px-6 py-2">Home</a>
+      <a href="#products" class="block px-6 py-2">Products</a>
+      <a href="#contact" class="block px-6 py-2">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="bg-blue-600 text-white text-center py-20">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Welcome to MyShop</h2>
+    <p class="mb-6">Discover the best products at unbeatable prices.</p>
+    <a href="#products" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">Shop Now</a>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="py-20 bg-gray-50">
+    <div class="container mx-auto max-w-6xl px-6">
+      <h2 class="text-4xl font-bold text-center mb-14 text-gray-800">Featured Products</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+
+        <!-- 8 Produk -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/emoe.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">Emoe</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$799.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="Smartphone X1" data-price="799.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/samba.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">Samba</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$1299.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="Laptop Pro 15" data-price="1299.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/puma.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">puma</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$199.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="Wireless Headphones" data-price="199.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/samba2jpg.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">Samba green</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$249.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="Smart Watch S2" data-price="249.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/samba3.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">Spezial</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$999.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="4K Smart TV" data-price="999.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/samba4.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">Samba</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$499.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="Gaming Console" data-price="499.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/vans.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">Vans</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$89.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="Bluetooth Speaker" data-price="89.99">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src="img/nike.jpg" class="w-full h-48 object-cover" />
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold mb-2">nike high</h3>
+            <p class="text-blue-600 font-bold text-lg mb-4">$1499.99</p>
+            <button class="add-to-cart mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              data-name="DSLR Camera" data-price="1499.99">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Popup -->
+  <div id="cart-popup" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-96 max-w-full">
+      <div class="flex justify-between items-center border-b px-4 py-2">
+        <h3 class="text-lg font-semibold">Shopping Cart</h3>
+        <button id="close-cart" class="text-gray-600 hover:text-gray-800">&times;</button>
+      </div>
+      <ul id="cart-items" class="p-4 space-y-4 max-h-64 overflow-y-auto"></ul>
+      <div class="border-t px-4 py-2 flex justify-between items-center">
+        <span id="cart-total" class="font-semibold">Total: $0.00</span>
+        <button id="checkout-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" disabled>Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-gray-800 text-gray-300 py-10">
+    <div class="container mx-auto max-w-6xl px-6 grid md:grid-cols-3 gap-10">
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-white">About Us</h3>
+        <p>MyShop is your trusted online store for the latest.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-white">Contact</h3>
+        <p>Email: rizalagungnugraha@gmail.com</p>
+        <p>Phone: +62 812 3456 7890</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-white">Follow Us</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-500">Facebook</a>
+          <a href="#" class="hover:text-blue-400">Twitter</a>
+          <a href="#" class="hover:text-pink-500">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <p class="text-center mt-10 text-gray-500">&copy; 2025 MyShop. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    const cartToggle = document.getElementById('cart-toggle');
+    const cartPopup = document.getElementById('cart-popup');
+    const closeCartBtn = document.getElementById('close-cart');
+    cartToggle.addEventListener('click', () => {
+      cartPopup.classList.toggle('hidden');
+    });
+    closeCartBtn.addEventListener('click', () => {
+      cartPopup.classList.add('hidden');
+    });
+
+    let cart = [];
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartCountEl = document.getElementById('cart-count');
+    const cartTotalEl = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    function formatPrice(price) {
+      return '$' + price.toFixed(2);
+    }
+
+    function updateCart() {
+      cartItemsEl.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<li class="text-center text-gray-400">Your cart is empty.</li>';
+        cartCountEl.textContent = '0';
+        cartTotalEl.textContent = 'Total: $0.00';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        const li = document.createElement('li');
+        li.className = 'flex justify-between items-center';
+        li.innerHTML = `
+          <div>
+            <p class="font-semibold">${item.name}</p>
+            <p class="text-sm text-gray-500">Qty: ${item.quantity}</p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <p class="font-semibold">${formatPrice(item.price * item.quantity)}</p>
+            <button data-index="${index}" class="text-red-600 hover:text-red-800 font-bold">&times;</button>
+          </div>
+        `;
+        cartItemsEl.appendChild(li);
+      });
+
+      cartCountEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartTotalEl.textContent = `Total: ${formatPrice(total)}`;
+      checkoutBtn.disabled = false;
+
+      cartItemsEl.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = e.target.getAttribute('data-index');
+          if (idx !== null) {
+            cart.splice(idx, 1);
+            updateCart();
+          }
+        });
+      });
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', () => {
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({ name, price, quantity: 1 });
+        }
+        updateCart();
+        cartPopup.classList.remove('hidden');
+      });
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      alert('Thank you for your purchase!');
+      cart = [];
+      updateCart();
+      cartPopup.classList.add('hidden');
+    });
+
+    updateCart();
+  </script>
+</body>
+</html>
