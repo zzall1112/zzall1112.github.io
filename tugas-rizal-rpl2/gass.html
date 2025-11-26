@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendi & Kepin Wedding - Modern Elegance</title>
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">pendi & kepin</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#story" class="nav-link">Our Story</a></li>
+                <li><a href="#details" class="nav-link">Details</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#rsvp" class="nav-link">RSVP</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">We're Getting Married!</h1>
+            <p class="hero-subtitle">Pendi & kepin</p>
+            <div id="countdown" class="countdown"></div>
+            <a href="#rsvp" class="cta-button">RSVP Now</a>
+        </div>
+        <div class="hero-bg">
+            <img src="assets/hero-bg.jpg" alt="Romantic sunset" id="hero-img">
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Love Story</h2>
+            <div class="story-grid">
+                <div class="story-text">
+                    <p>We met in a cozy coffee shop on a rainy afternoon in 2018. What started as a simple conversation over spilled coffee turned into a beautiful journey of love, laughter, and endless adventures.</p>
+                    <p>Today, we're excited to celebrate our commitment with you. Join us as we say 'I do' in the most magical way.</p>
+                </div>
+                <div class="story-image">
+                    <img src="assets/zall.png" alt="Our couple photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section id="details" class="section">
+        <div class="container">
+            <h2 class="section-title">Wedding Details</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h3>Date & Time</h3>
+                    <p>December 31, 2025<br>4:00 PM</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Venue</h3>
+                    <p>Beautiful Garden Hall<br>123 Wedding St, City, Country</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Dress Code</h3>
+                    <p>Formal Attire<br>Think elegant & romantic</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Moments</h2>
+            <div class="gallery-container">
+                <div class="carousel">
+                    <button class="carousel-btn prev" onclick="changeSlide(-1)">‹</button>
+                    <div class="carousel-images" id="carousel-images">
+                        <img src="assets/zall.png" alt="Moment 1" class="carousel-img active">
+                        <img src="assets/zall.png" alt="Moment 2" class="carousel-img">
+                        <img src="assets/zall.png" alt="Moment 3" class="carousel-img">
+                    </div>
+                    <button class="carousel-btn next" onclick="changeSlide(1)">›</button>
+                </div>
+                <div class="gallery-thumbs">
+                    <img src="assets/zall.png" alt="Thumb 1" onclick="currentSlide(1)" class="thumb active">
+                    <img src="assets/zall.png" alt="Thumb 2" onclick="currentSlide(2)" class="thumb">
+                    <img src="assets/zall.png" alt="Thumb 3" onclick="currentSlide(3)" class="thumb">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="section">
+        <div class="container">
+            <h2 class="section-title">RSVP</h2>
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                    <span class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="attending">Will you attend?</label>
+                    <select id="attending" name="attending" required>
+                        <option value="">Select...</option>
+                        <option value="yes">Yes, I'll be there!</option>
+                        <option value="no">Regretfully, no</option>
+                    </select>
+                    <span class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <input type="number" id="guests" name="guests" min="1" max="10" value="1">
+                </div>
+                <button type="submit" class="submit-btn">Send RSVP</button>
+            </form>
+            <div id="form-message" class="message"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Pendi & Kepin Wedding. Made with ❤️</p>
+    </footer>
+
+    <!-- Lightbox Modal for Gallery -->
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-content" alt="Lightbox image">
+        <button class="lightbox-btn prev" onclick="changeSlide(-1)">‹</button>
+        <button class="lightbox-btn next" onclick="changeSlide(1)">›</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
